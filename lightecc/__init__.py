@@ -31,7 +31,7 @@ class LightECC:
                  - e.g. secp256k1 for weierstrass form
                  - e.g. k-409 for koblitz form
                 List of all available curves:
-                    github.com/serengil/LightPHE/blob/master/lightphe/elliptic_curve_forms/README.md
+                    github.com/serengil/LightECC
         """
         if form_name is None or form_name == "weierstrass":
             self.curve = Weierstrass(curve=curve_name)
