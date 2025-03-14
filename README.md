@@ -276,11 +276,11 @@ Please cite LightECC in your publications if it helps your research. Here is its
 
 ```BibTeX
 @misc{serengil2025lightecc
-    author       = {Serengil, Sefik},
-    title        = {LightECC: A Lightweight Elliptic Curve Cryptography Arithmetic Library for Python},
+    author       = {Serengil, Sefik Ilkin},
+    title        = {LightECC: A Lightweight Elliptic Curve Cryptography Arithmetic Library for Python with Support for Prime and Binary Fields},
     year         = {2025},
     publisher    = {GitHub},
-    howpublished = {\url{https://github.com/serengil/LightECC}},
+    howpublished = {https://github.com/serengil/LightECC},
 }
 ```
 
