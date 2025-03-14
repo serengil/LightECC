@@ -84,13 +84,15 @@ ec = LightECC()
 n = ec.n
 
 # neutral element
-nG = n * G
+neutral = n * G
 
 # scalar multiplication
 _17G = 17 * G
+minus17G = -1 * _17G
 
 # proof of work for neutralism
-assert _17G == _17G + nG
+assert _17G == _17G + neutral
+assert _17G + minus17G == neutral
 
 # proof of work for cyclic group
 assert (n + 1) * G == G
