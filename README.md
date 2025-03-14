@@ -19,7 +19,7 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/serengil/LightECC/master/images/starfish.jpg" width="240" height="240"></p>
 
-LightECC is a lightweight elliptic curve cryptography library for its arithmetic for python. It is a hybrid library wrapping many elliptic curve forms such as [Weierstrass](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curve-cryptography/), [Koblitz](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curves-over-binary-field/) and [Edwards](https://sefiks.com/2018/12/19/a-gentle-introduction-to-edwards-curves/).
+LightECC is a lightweight elliptic curve cryptography library for its arithmetic for python. It is a hybrid library wrapping many elliptic curve forms such as [Weierstrass](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curve-cryptography/), [Koblitz](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curves-over-binary-field/) and [Edwards](https://sefiks.com/2018/12/19/a-gentle-introduction-to-edwards-curves/), and many pre-defined curves for those forms. With LightECC, you don’t need to acquire in-depth knowledge about the behind of elliptic curve arithmetics. You can perform addition, subtraction, multiplication and division with a few lines of code.
 
 # Installation [![PyPI](https://img.shields.io/pypi/v/lightecc.svg)](https://pypi.org/project/lightecc/)
 
