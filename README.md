@@ -76,7 +76,7 @@ On the other hand, division requires solving the [elliptic curve discrete logari
 
 # Point at Infinity or Neutral & Identity Element
 
-The order of the elliptic curve is defined by the argument n in the constructed LightECC object. This represents the total number of points on the curve. It also serves as the [neutral or identity element](https://sefiks.com/2023/09/29/understanding-identity-element-in-elliptic-curves/) of the curve, meaning that adding this point to any other point does not change the result. Additionally, elliptic curves exhibit cyclic group properties beyond this point.
+The order of the elliptic curve is defined by the argument n in the constructed LightECC object. This represents the total number of points on the curve. It also serves as the [neutral or identity element](https://sefiks.com/2023/09/29/understanding-identity-element-in-elliptic-curves/) in Edwards curves and point at infinity in Weierstass and Koblitz forms, meaning that adding this point to any other point does not change the result. Additionally, elliptic curves exhibit cyclic group properties beyond this point.
 
 ```python
 ec = LightECC()
