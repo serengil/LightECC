@@ -68,11 +68,11 @@ _50G = 50 * G
 _25G = _50G / G
 ```
 
-Here, addition and subtraction require only basic formulas and can be performed in constant time *𝒪(1)*.
+Here, addition and subtraction require only basic formulas and can be performed in constant time 𝒪(1).
 
-Supportingly, the [double-and-add](https://sefiks.com/2016/03/27/double-and-add-method/) method is adopted for multiplication, allowing it to be performed very quickly in linear time with *𝒪(log(n))*, regardless of the size of the multiplier.
+Supportingly, the [double-and-add](https://sefiks.com/2016/03/27/double-and-add-method/) method is adopted for multiplication, allowing it to be performed very quickly in linear time with 𝒪(log(n)), regardless of the size of the multiplier.
 
-On the other hand, division requires solving the [elliptic curve discrete logarithm problem](https://sefiks.com/2018/02/28/attacking-elliptic-curve-discrete-logarithm-problem/), which is computationally difficult. Its time complexity is *𝒪(n)* with brute force.
+On the other hand, division requires solving the [elliptic curve discrete logarithm problem](https://sefiks.com/2018/02/28/attacking-elliptic-curve-discrete-logarithm-problem/), which is computationally difficult. Its time complexity is 𝒪(n) with brute force.
 
 # Point at Infinity or Neutral & Identity Element
 
