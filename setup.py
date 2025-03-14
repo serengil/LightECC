@@ -11,7 +11,7 @@ setuptools.setup(
     version="0.0.1",
     author="Sefik Ilkin Serengil",
     author_email="serengil@gmail.com",
-    description="A Lightweight Elliptic Curve Cryptography for Python",
+    description="A Lightweight Elliptic Curve Cryptography Arithmetic Library for Python with Support for Prime and Binary Fields",
     data_files=[("", ["README.md", "requirements.txt"])],
     long_description=long_description,
     long_description_content_type="text/markdown",
