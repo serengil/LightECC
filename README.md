@@ -42,11 +42,10 @@ Building an elliptic curve cryptosystem is very straightforward in LightECC. You
 ```python
 from lightecc import LightECC
 
-forms = ["weierstrass", "koblitz", "edwards"]
-
+# build an elliptic curve
 ec = LightECC(
-    form_name = "edwards",
-    curve_name = "ed25519",
+    form_name = "edwards", # or weierstrass, koblitz. default is weierstrass.
+    curve_name = "ed25519", # check out supported curves section
 )
 
 # get the base point
@@ -114,7 +113,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | edwards | curve41417 | prime | 411 |
 | edwards | numsp384t1 | prime | 382 |
 | edwards | id-tc26-gost-3410-2012-256-paramseta | prime | 255 |
-| edwards | ed25519 | prime | 254 |
+| edwards | ed25519 (**default**) | prime | 254 |
 | edwards | mdc201601 | prime | 254 |
 | edwards | numsp256t1 | prime | 254 |
 | edwards | jubjub | prime | 252 |
@@ -159,7 +158,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | weierstrass | gost256 | prime | 256 |
 | weierstrass | numsp256d1 | prime | 256 |
 | weierstrass | p256 | prime | 256 |
-| weierstrass | secp256k1 | prime | 256 |
+| weierstrass | secp256k1 (**default**) | prime | 256 |
 | weierstrass | tom256 | prime | 256 |
 | weierstrass | bls12-381 | prime | 255 |
 | weierstrass | pallas | prime | 255 |
@@ -239,7 +238,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | koblitz | c2tnb191v3 | binary | 189 |
 | koblitz | b163 | binary | 163 |
 | koblitz | c2pnb163v1 | binary | 163 |
-| koblitz | k163 | binary | 163 |
+| koblitz | k163 (**default**) | binary | 163 |
 | koblitz | ansit163r1 | binary | 162 |
 | koblitz | c2pnb163v2 | binary | 162 |
 | koblitz | c2pnb163v3 | binary | 162 |
