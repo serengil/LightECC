@@ -288,4 +288,4 @@ Please cite LightECC in your publications if it helps your research. Here is its
 
 LightECC is licensed under the MIT License - see [`LICENSE`](https://github.com/serengil/LightECC/blob/master/LICENSE) for more details.
 
-LightECC's [logo](https://thenounproject.com/icon/starfish-757257/) is designed by Identidea Portfolio.
+LightECC's [logo](https://thenounproject.com/icon/starfish-757257/), designed by Identidea, is inspired from Edwards curves graphs.
