@@ -19,7 +19,11 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/serengil/LightECC/master/images/starfish.jpg" width="240" height="240"></p>
 
-LightECC is a lightweight elliptic curve cryptography library for its arithmetic for python. It is a hybrid library wrapping many elliptic curve forms such as [Weierstrass](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curve-cryptography/), [Koblitz](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curves-over-binary-field/) and [Edwards](https://sefiks.com/2018/12/19/a-gentle-introduction-to-edwards-curves/), and many pre-defined curves for those forms. With LightECC, you don’t need to acquire in-depth knowledge about the behind of elliptic curve arithmetics. You can perform addition, subtraction, multiplication and division with a few lines of code.
+LightECC is a lightweight elliptic curve cryptography library for its arithmetic for python. It is a hybrid library wrapping many elliptic curve forms such as [Weierstrass](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curve-cryptography/), [Koblitz](https://sefiks.com/2016/03/13/the-math-behind-elliptic-curves-over-binary-field/) and [Edwards](https://sefiks.com/2018/12/19/a-gentle-introduction-to-edwards-curves/), and many pre-defined curves for those forms.
+
+ECC requires different methods for its arithmetic. For example, Weierstrass and Koblitz forms involve drawing a line that passes through two points, and the intersection's reflection across the x-axis represents the addition of the two points. Doubling a point also involves drawing a tangent line. In contrast, Edwards curves rely on formulas that cannot be visualized with lines. Moreover, Weierstrass and Koblitz forms have distinct formulas for addition and doubling, whereas Edwards curves use a single, unified formula for both operations. Furthermore, the Weierstrass form is symmetric about the x-axis, making it easy to find the negative of a point by reflecting it across the x-axis. On the other hand, the Koblitz form is not symmetric and requires a different formula to negate a point. The Edwards form requires considering the neutral point in order to find the negative of a given point.
+
+LightECC simplifies these arithmetic operations. You don't need to understand the underlying principles forms. Once you define an elliptic curve in a given form, you can perform addition, subtraction, multiplication, and division of points using standard operators.
 
 # Installation [![PyPI](https://img.shields.io/pypi/v/lightecc.svg)](https://pypi.org/project/lightecc/)
 
