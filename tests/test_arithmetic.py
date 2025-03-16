@@ -4,7 +4,7 @@ from lightecc.commons.logger import Logger
 
 logger = Logger(module="tests/test_arithmetic.py")
 
-FORMS = ["weierstrass", "edwards", "koblitz"]
+FORMS = ["weierstrass", "koblitz", "edwards"]
 
 
 def test_adding_a_point_with_its_negative():
@@ -50,9 +50,9 @@ def test_elliptic_curve_cyclic_group_on_real_curves():
 
         _17G = 17 * G
 
-        assert _17G == _17G + nG
-        assert (n + 1) * G == G
-        assert (n + 2) * G == 2 * G
+        assert _17G == _17G + nG, f"17G + nG != 17G for {form}"
+        assert (n + 1) * G == G, f"(n + 1)G != G for {form}"
+        assert (n + 2) * G == 2 * G, f"(n + 2)G != 2G for {form}"
 
         logger.info(f"✅ Test elliptic curve cyclic group on real {form} curve done.")
 
