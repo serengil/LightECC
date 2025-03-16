@@ -251,6 +251,10 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | koblitz | sect113r2 | binary | 113 |
 | koblitz | wap-wsg-idm-ecid-wtls1 | binary | 112 |
 
+# Applications
+
+With ECC, we can perform key exchange, digital signatures, and encryption. Explore the [`LightPHE`](https://github.com/serengil/LightPHE) library for its encryption and decryption implementation, which also demonstrates additive homomorphic properties. Additionally, check out [`LightDSA`](https://github.com/serengil/LightDSA) for digital signature implementations. These are both built on LightECC's fundamentals.
+
 # Contributing
 
 All PRs are more than welcome! If you are planning to contribute a large patch, please create an issue first to get any upfront questions or design decisions out of the way first.
