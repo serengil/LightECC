@@ -913,8 +913,11 @@ class Secp224k1(WeierstrassInterface):
     n = 0x10000000000000000000000000001DCE8D2EC6184CAF0A971769FB1F7
 
 
-# github.com/victormeloasm/OpenFrogget
 class EccFrog512CK2:
+    """
+    github.com/victormeloasm/OpenFrogget
+    """
+
     a = -7
     b = 95864189850957917703933006131793785649240252916618759767550461391845895018181
     p = 9149012705592502490164965176888130701548053918699793689672344807772801105830681498780746622530729418858477103073591918058480028776841126664954537807339721
@@ -927,7 +930,7 @@ class EccFrog512CK2:
 
 class Test_Curve(WeierstrassInterface):
     """
-    http://koclab.cs.ucsb.edu/teaching/ccs130h/2018/04ecc.pdf
+    koclab.cs.ucsb.edu/teaching/ccs130h/2018/04ecc.pdf
     """
 
     a = 1
