@@ -5,4 +5,5 @@ build/
 dist/
 *.pyc
 tests/*.lphe
+tests/*.ipynb
 .pytest_cache/
