@@ -254,7 +254,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 
 # Applications
 
-With ECC, we can perform key exchange, digital signatures, and encryption. Explore the [`LightPHE`](https://github.com/serengil/LightPHE) library for its encryption and decryption implementation, which also demonstrates additive homomorphic properties. Additionally, check out [`LightDSA`](https://github.com/serengil/LightDSA) for digital signature implementations. These are both built on LightECC's fundamentals.
+Explore the [`LightPHE`](https://github.com/serengil/LightPHE) library for its encryption and decryption implementation, which also demonstrates additive homomorphic properties with Elliptic Curve ElGamal algorithm. Additionally, check out [`LightDSA`](https://github.com/serengil/LightDSA) for elliptic curve based digital signature implementations such as ECDSA and EdDSA. These are both built on LightECC's fundamentals.
 
 # Contributing
 
