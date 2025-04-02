@@ -133,6 +133,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | weierstrass | brainpoolp512t1 | prime | 512 |
 | weierstrass | fp512bn | prime | 512 |
 | weierstrass | numsp512d1 | prime | 512 |
+| weierstrass | eccfrog512ck2 | prime | 512 |
 | weierstrass | gost512 | prime | 511 |
 | weierstrass | bn510 | prime | 510 |
 | weierstrass | bn478 | prime | 478 |
