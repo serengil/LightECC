@@ -31,6 +31,14 @@ class Ed448(TwistedEdwardsInterface):
     )
     n = 0x3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7CCA23E9C44EDB49AED63690216CC2728DC58F552378C292AB5844F3
 
+class Ed448Godilocks(TwistedEdwardsInterface):
+    """https://eprint.iacr.org/2015/625.pdf"""
+    a = 1
+    p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    d = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffff6756
+    G = (0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa955555555555555555555555555555555555555555555555555555555, 0xae05e9634ad7048db359d6205086c2b0036ed7a035884dd7b7e36d728ad8c4b80d6565833a2a3098bbbcb2bed1cda06bdaeafbcdea9386ed)
+    n = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
+
 
 class E521(TwistedEdwardsInterface):
     p = 0x1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
@@ -41,6 +49,25 @@ class E521(TwistedEdwardsInterface):
         0x0C,
     )
     n = 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD15B6C64746FC85F736B8AF5E7EC53F04FBD8C4569A8F1F4540EA2435F5180D6B
+
+
+class E382(TwistedEdwardsInterface):
+    """https://eprint.iacr.org/2013/647.pdf"""
+    a = 1
+    p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
+    d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef8e1
+    G = (0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603, 0x11)
+    n = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
+
+
+class E222(TwistedEdwardsInterface):
+    """https://eprint.iacr.org/2013/647.pdf"""
+
+    a = 1
+    p = 0x3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B
+    d = 0x27166
+    G = (0x19B12BB156A389E55C9768C303316D07C23ADAB3736EB2BC3EB54E51, 0x1C)
+    n = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFF70CBC95E932F802F31423598CBF
 
 
 class Curve41417(TwistedEdwardsInterface):

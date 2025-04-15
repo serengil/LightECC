@@ -112,13 +112,16 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | edwards | id-tc26-gost-3410-2012-512-paramsetc | prime | 510 |
 | edwards | numsp512t1 | prime | 510 |
 | edwards | ed448 | prime | 446 |
+| edwards | ed448godilocks | prime | 446 |
 | edwards | curve41417 | prime | 411 |
 | edwards | numsp384t1 | prime | 382 |
+| edwards | e382 | prime | 380 |
 | edwards | id-tc26-gost-3410-2012-256-paramseta | prime | 255 |
 | edwards | ed25519 (**default**) | prime | 254 |
 | edwards | mdc201601 | prime | 254 |
 | edwards | numsp256t1 | prime | 254 |
 | edwards | jubjub | prime | 252 |
+| edwards | e222 | prime | 220 |
 
 ## Weierstass Form
 
