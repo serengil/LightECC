@@ -913,7 +913,7 @@ class Secp224k1(WeierstrassInterface):
     n = 0x10000000000000000000000000001DCE8D2EC6184CAF0A971769FB1F7
 
 
-class EccFrog512CK2:
+class EccFrog512CK2(WeierstrassInterface):
     """
     github.com/victormeloasm/OpenFrogget
     """
