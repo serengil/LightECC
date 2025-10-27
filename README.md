@@ -108,6 +108,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 
 | form | curve | field | n (bits) |
 | --- | --- | --- | --- |
+| edwards | ed25519 (**default**) | prime | 254 |
 | edwards | e521 | prime | 519 |
 | edwards | id-tc26-gost-3410-2012-512-paramsetc | prime | 510 |
 | edwards | numsp512t1 | prime | 510 |
@@ -117,7 +118,6 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | edwards | numsp384t1 | prime | 382 |
 | edwards | e382 | prime | 380 |
 | edwards | id-tc26-gost-3410-2012-256-paramseta | prime | 255 |
-| edwards | ed25519 (**default**) | prime | 254 |
 | edwards | mdc201601 | prime | 254 |
 | edwards | numsp256t1 | prime | 254 |
 | edwards | jubjub | prime | 252 |
@@ -127,6 +127,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 
 | form | curve | field | n (bits) |
 | --- | --- | --- | --- |
+| weierstrass | secp256k1 (**default**) | prime | 256 |
 | weierstrass | bn638 | prime | 638 |
 | weierstrass | bn606 | prime | 606 |
 | weierstrass | bn574 | prime | 574 |
@@ -164,8 +165,8 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | weierstrass | gost256 | prime | 256 |
 | weierstrass | numsp256d1 | prime | 256 |
 | weierstrass | p256 | prime | 256 |
-| weierstrass | secp256k1 (**default**) | prime | 256 |
 | weierstrass | tom256 | prime | 256 |
+| weierstrass | sm2 | prime | 256 |
 | weierstrass | bls12-381 | prime | 255 |
 | weierstrass | pallas | prime | 255 |
 | weierstrass | tweedledee | prime | 255 |
@@ -219,6 +220,7 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 
 | form | curve | field | n (bits) |
 | --- | --- | --- | --- |
+| koblitz | k163 (**default**) | binary | 163 |
 | koblitz | b571 | binary | 570 |
 | koblitz | k571 | binary | 570 |
 | koblitz | c2tnb431r1 | binary | 418 |
@@ -244,7 +246,6 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | koblitz | c2tnb191v3 | binary | 189 |
 | koblitz | b163 | binary | 163 |
 | koblitz | c2pnb163v1 | binary | 163 |
-| koblitz | k163 (**default**) | binary | 163 |
 | koblitz | ansit163r1 | binary | 162 |
 | koblitz | c2pnb163v2 | binary | 162 |
 | koblitz | c2pnb163v3 | binary | 162 |
