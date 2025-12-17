@@ -10,7 +10,7 @@ from lightecc.commons.logger import Logger
 
 logger = Logger(module="lightecc/__init__.py")
 
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 
 
 # pylint: disable=too-few-public-methods

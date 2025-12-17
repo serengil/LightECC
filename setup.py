@@ -8,7 +8,7 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
 
 setuptools.setup(
     name="lightecc",
-    version="0.0.3",
+    version="0.0.4",
     author="Sefik Ilkin Serengil",
     author_email="serengil@gmail.com",
     description="A Lightweight Elliptic Curve Cryptography Arithmetic Library for Python with Support for Prime and Binary Fields",
