@@ -6,11 +6,12 @@ from lightecc.interfaces.elliptic_curve import EllipticCurve
 from lightecc.commons import binary_operations as bin_ops
 from lightecc.curves import inventory
 from lightecc.interfaces.form import KoblitzInterface
+from lightecc.curves.koblitz import CustomKoblitzCurve
 
 
 # pylint: disable=no-else-return, too-many-instance-attributes
 class Koblitz(EllipticCurve):
-    def __init__(self, curve: Optional[str] = "k163"):
+    def __init__(self, curve: Optional[str] = "k163", config: Optional[dict] = None):
         """
         Create Elliptic Curve satisfying y^2 + xy = x^3 + ax ^2+ b
         References:
@@ -21,10 +22,27 @@ class Koblitz(EllipticCurve):
                 In Journal of Physics: Conference Series (Vol. 710, No. 1, p. 012022).
                 Available at: iopscience.iop.org/article/10.1088/1742-6596/710/1/012022/pdf
         """
-        curve_args = cast(
-            KoblitzInterface,
-            inventory.build_curve(form_name="koblitz", curve_name=curve),
-        )
+        if curve == "custom" and config is None:
+            raise ValueError("Custom curve requires a configuration dictionary")
+
+        if curve == "custom" and config is not None:
+            if not all(k in config for k in ("m", "coefficients", "a", "b", "G", "n")):
+                raise ValueError(
+                    "Koblitz custom curve configuration must include 'm', 'coefficients', 'a', 'b', 'G', and 'n'"
+                )
+            curve_args = CustomKoblitzCurve(
+                m=config["m"],
+                coefficients=config["coefficients"],
+                a=config["a"],
+                b=config["b"],
+                G=config["G"],
+                n=config["n"],
+            )
+        else:
+            curve_args = cast(
+                KoblitzInterface,
+                inventory.build_curve(form_name="koblitz", curve_name=curve),
+            )
 
         # Point at infinity (sefiks.com/2023/09/29/understanding-identity-element-in-elliptic-curves)
         self.O = (float("inf"), float("inf"))

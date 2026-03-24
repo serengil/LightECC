@@ -431,3 +431,13 @@ class Test_Curve(KoblitzInterface):
             "koblitz test-curve is for development and educational purposes only"
             " and should not be used in production."
         )
+
+
+class CustomKoblitzCurve(KoblitzInterface):
+    def __init__(self, m, coefficients, a, b, G, n):
+        self.m = m
+        self.coefficients = coefficients
+        self.a = a
+        self.b = b
+        self.G = G
+        self.n = n

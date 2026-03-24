@@ -59,7 +59,7 @@ class EllipticCurve(ABC):
         """
         target_point = G
 
-        if k >= self.n:
+        if self.n is not None and k >= self.n:
             k = k % self.n
         if k == 0:
             return self.O

@@ -12,6 +12,13 @@ def test_build_curves():
     for form in FORMS:
         curves = inventory.list_curves(form)
         for curve in curves:
+            if curve in [
+                "customweierstrasscurve",
+                "customedwardscurve",
+                "customkoblitzcurve",
+            ]:
+                continue
+
             ec = LightECC(form_name=form, curve_name=curve)
 
             # base point
