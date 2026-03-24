@@ -1,6 +1,6 @@
 # built-in dependencies
 from abc import ABC
-from typing import Tuple, List
+from typing import Tuple, List, Optional
 
 
 # pylint: disable=too-few-public-methods
@@ -9,7 +9,7 @@ class WeierstrassInterface(ABC):
     a: int  # equation parameters
     b: int  # equation parameters
     G: Tuple[int, int]  # base point G
-    n: int  # elliptic curve order (number of points on the curve)
+    n: Optional[int]  # elliptic curve order (number of points on the curve)
 
 
 class TwistedEdwardsInterface(ABC):
@@ -17,7 +17,7 @@ class TwistedEdwardsInterface(ABC):
     a: int  # equation parameters
     d: int  # equation parameters
     G: Tuple[int, int]  # base point G
-    n: int  # elliptic curve order (number of points on the curve)
+    n: Optional[int]  # elliptic curve order (number of points on the curve)
 
 
 class KoblitzInterface(ABC):
@@ -26,4 +26,4 @@ class KoblitzInterface(ABC):
     a: int  # equation parameters
     b: int  # equation parameters
     G: Tuple[int, int]  # base point G
-    n: int  # elliptic curve order (number of points on the curve)
+    n: Optional[int]  # elliptic curve order (number of points on the curve)

@@ -955,3 +955,20 @@ class Test_Curve(WeierstrassInterface):
             "weierstrass test-curve is for development and educational purposes only"
             " and should not be used in production."
         )
+
+
+class SS_Weierstrass_307(WeierstrassInterface):
+    a = 1
+    b = 0
+    p = 307
+    G = (182, 240)
+    n = 77
+
+
+class CustomWeierstrassCurve(WeierstrassInterface):
+    def __init__(self, p, a, b, G, n):
+        self.p = p
+        self.a = a
+        self.b = b
+        self.G = G
+        self.n = n

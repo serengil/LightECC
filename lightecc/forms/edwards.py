@@ -2,7 +2,7 @@
 from typing import Tuple, Optional, cast
 from lightecc.interfaces.elliptic_curve import EllipticCurve
 from lightecc.curves import inventory
-from lightecc.curves.edwards import TwistedEdwardsInterface
+from lightecc.curves.edwards import TwistedEdwardsInterface, CustomEdwardsCurve
 
 
 # pylint: disable=no-else-return
@@ -15,11 +15,28 @@ class TwistedEdwards(EllipticCurve):
         [2] https://sefiks.com/2018/12/26/twisted-edwards-curves/
     """
 
-    def __init__(self, curve: Optional[str] = "ed25519"):
-        curve_args = cast(
-            TwistedEdwardsInterface,
-            inventory.build_curve(form_name="edwards", curve_name=curve),
-        )
+    def __init__(self, curve: Optional[str] = "ed25519", config: Optional[dict] = None):
+
+        if curve == "custom" and config is None:
+            raise ValueError("Custom curve requires a configuration dictionary")
+
+        if curve == "custom" and config is not None:
+            if not all(k in config for k in ("p", "a", "d", "G", "n")):
+                raise ValueError(
+                    "Edwards custom curve configuration must include 'p', 'a', 'd', 'G', and 'n'"
+                )
+            curve_args = CustomEdwardsCurve(
+                p=config["p"],
+                a=config["a"],
+                d=config["d"],
+                G=config["G"],
+                n=config["n"],
+            )
+        else:
+            curve_args = cast(
+                TwistedEdwardsInterface,
+                inventory.build_curve(form_name="edwards", curve_name=curve),
+            )
 
         # modulo
         self.modulo = curve_args.p

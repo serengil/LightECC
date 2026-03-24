@@ -1,3 +1,6 @@
+# built-in dependencies
+from typing import Tuple
+
 # project dependencies
 from lightecc.interfaces.form import TwistedEdwardsInterface
 from lightecc.commons.logger import Logger
@@ -31,13 +34,18 @@ class Ed448(TwistedEdwardsInterface):
     )
     n = 0x3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7CCA23E9C44EDB49AED63690216CC2728DC58F552378C292AB5844F3
 
+
 class Ed448Godilocks(TwistedEdwardsInterface):
     """https://eprint.iacr.org/2015/625.pdf"""
+
     a = 1
-    p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    d = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffff6756
-    G = (0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa955555555555555555555555555555555555555555555555555555555, 0xae05e9634ad7048db359d6205086c2b0036ed7a035884dd7b7e36d728ad8c4b80d6565833a2a3098bbbcb2bed1cda06bdaeafbcdea9386ed)
-    n = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
+    p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    d = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6756
+    G = (
+        0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA955555555555555555555555555555555555555555555555555555555,
+        0xAE05E9634AD7048DB359D6205086C2B0036ED7A035884DD7B7E36D728AD8C4B80D6565833A2A3098BBBCB2BED1CDA06BDAEAFBCDEA9386ED,
+    )
+    n = 0x3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7CCA23E9C44EDB49AED63690216CC2728DC58F552378C292AB5844F3
 
 
 class E521(TwistedEdwardsInterface):
@@ -53,11 +61,15 @@ class E521(TwistedEdwardsInterface):
 
 class E382(TwistedEdwardsInterface):
     """https://eprint.iacr.org/2013/647.pdf"""
+
     a = 1
-    p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
-    d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef8e1
-    G = (0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603, 0x11)
-    n = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
+    p = 0x3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF97
+    d = 0x3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEF8E1
+    G = (
+        0x196F8DD0EAB20391E5F05BE96E8D20AE68F840032B0B64352923BAB85364841193517DBCE8105398EBC0CC9470F79603,
+        0x11,
+    )
+    n = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5FB21F21E95EEE17C5E69281B102D2773E27E13FD3C9719
 
 
 class E222(TwistedEdwardsInterface):
@@ -164,3 +176,19 @@ class Test_Curve(TwistedEdwardsInterface):
             "edwards test-curve is for development and educational purposes only"
             " and should not be used in production."
         )
+
+
+class CustomEdwardsCurve(TwistedEdwardsInterface):
+    def __init__(
+        self,
+        p: int,
+        a: int,
+        d: int,
+        G: Tuple[int, int],
+        n: int,
+    ):
+        self.p = p
+        self.a = a
+        self.d = d
+        self.G = G
+        self.n = n

@@ -1,22 +1,41 @@
 from typing import Tuple, Optional, cast
 from lightecc.interfaces.elliptic_curve import EllipticCurve
 
-from lightecc.curves.weierstrass import WeierstrassInterface
+from lightecc.curves.weierstrass import WeierstrassInterface, CustomWeierstrassCurve
 from lightecc.curves import inventory
 
 
 # pylint: disable=no-else-return
 class Weierstrass(EllipticCurve):
-    def __init__(self, curve: Optional[str] = "secp256k1"):
+    def __init__(
+        self, curve: Optional[str] = "secp256k1", config: Optional[dict] = None
+    ):
         """
         Create Elliptic Curve satisfying y^2 = x^3 + ax + b
         This is the most popular elliptic curve form. Bitcoin is depending on this form.
         Ref: https://sefiks.com/2016/03/13/the-math-behind-elliptic-curve-cryptography/
         """
-        curve_args = cast(
-            WeierstrassInterface,
-            inventory.build_curve(form_name="weierstrass", curve_name=curve),
-        )
+
+        if curve == "custom" and config is None:
+            raise ValueError("Custom curve requires a configuration dictionary")
+
+        if curve == "custom" and config is not None:
+            if not all(k in config for k in ("p", "a", "b", "G", "n")):
+                raise ValueError(
+                    "Weierstrass custom curve configuration must include 'p', 'a', 'b', 'G', and 'n'"
+                )
+            curve_args = CustomWeierstrassCurve(
+                p=config["p"],
+                a=config["a"],
+                b=config["b"],
+                G=config["G"],
+                n=config["n"],
+            )
+        else:
+            curve_args = cast(
+                WeierstrassInterface,
+                inventory.build_curve(form_name="weierstrass", curve_name=curve),
+            )
 
         # equation parameters
         self.a = curve_args.a
