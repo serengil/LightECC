@@ -7,14 +7,15 @@ from lightecc.forms.edwards import TwistedEdwards
 from lightecc.forms.koblitz import Koblitz
 from lightecc.interfaces.elliptic_curve import EllipticCurvePoint
 from lightecc.commons.pairing import weil_pairing
+from lightecc.commons.errors import InvalidCurveOrder
 from lightecc.commons.logger import Logger
 
 logger = Logger(module="lightecc/__init__.py")
 
-VERSION = "0.0.5"
+VERSION = "0.0.6"
 
 
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods, too-many-function-args
 class LightECC:
     __version__ = VERSION
 
@@ -61,6 +62,31 @@ class LightECC:
         # point at infinity or neutral / identity element
         self.O = EllipticCurvePoint(self.curve.O[0], self.curve.O[1], self.curve)
 
+        # In lightecc/interfaces/elliptic_curve.py::double_and_add, returning the point at infinity (O)
+        # when n is given as a scalar implicitly assumes that n is the correct order
+        # of the base point (or the curve subgroup).
+        #
+        # This assumption is only valid if n * G = O.
+        # If n is not the true order, then n * G should yield a non-identity point.
+        #
+        # To validate n, we can instead compute:
+        #     (n - 1) * G + G
+        # which should equal O if and only if n is the correct order.
+        # Otherwise, the result will be a non-identity point.
+        #
+        # Notice that (n - 1) * G is a point, and we don't know (n - 1) multiplier
+        if self.n is not None:
+            n_minus_1_G = (self.n - 1) * self.G
+            nG = n_minus_1_G + self.G
+            if nG != self.O:
+                if form_name == "edwards":
+                    point_o_label = "neutral element / identity element"
+                else:
+                    point_o_label = "point at infinity / identity element"
+                raise InvalidCurveOrder(
+                    f"Invalid curve order: n x G does not equal to the {point_o_label}."
+                )
+
         # modulo
         self.modulo = self.curve.modulo
 
@@ -94,3 +120,30 @@ class LightECC:
         result = weil_pairing(P, Q, n)
 
         return result
+
+    def find_order(self) -> int:
+        """
+        Compute the order of an elliptic curve from the base point G using a brute-force approach.
+        This is only for demonstration purposes and should not be used for large curves.
+        TODO: Implement more efficient algorithms for finding the order
+
+        Returns:
+            int: the order of the base point G
+        """
+        if self.n is not None:
+            logger.warn(
+                "Curve order n is already defined as %d. Returning n without computation.",
+                self.n,
+            )
+            return self.n
+        current_point = self.G
+        order = 1
+
+        while current_point != self.O:
+            current_point += self.G
+            order += 1
+
+        # overwrite n with the found order
+        self.n = order
+
+        return order
