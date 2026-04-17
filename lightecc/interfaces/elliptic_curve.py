@@ -3,6 +3,7 @@ from typing import Tuple
 from abc import ABC, abstractmethod
 
 # project dependencies
+from lightecc.commons.errors import PointNotOnCurve
 from lightecc.commons.logger import Logger
 
 logger = Logger(module="lightecc/interfaces/elliptic_curve.py")
@@ -94,7 +95,8 @@ class EllipticCurvePoint:
         self.y = y
         self.curve = curve
 
-        assert self.curve.is_on_curve((x, y)), f"({x}, {y}) is not on the curve!"
+        if not self.curve.is_on_curve((x, y)):
+            raise PointNotOnCurve(f"({x}, {y}) is not on the curve!")
 
     def get_point(self) -> Tuple[int, int]:
         return (self.x, self.y)
