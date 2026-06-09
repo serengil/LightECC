@@ -84,6 +84,28 @@ class EllipticCurve(ABC):
 
         return target_point
 
+    def __eq__(self, other: object) -> bool:
+        """
+        Two curves are equal when they share the same form and defining
+        parameters (equation coefficients, modulo and order). This is a
+        value-based comparison rather than object identity so that a curve
+        keeps comparing equal to itself after being pickled - e.g. when an
+        EllipticCurvePoint is sent across a multiprocessing boundary.
+        """
+        if not isinstance(other, EllipticCurve):
+            return NotImplemented
+        return (
+            type(self) is type(other)
+            and self.modulo == other.modulo
+            and self.n == other.n
+            and self.a == other.a
+            and self.b == other.b
+            and self.d == other.d
+        )
+
+    def __hash__(self) -> int:
+        return hash((type(self).__name__, self.modulo, self.n, self.a, self.b, self.d))
+
 
 class EllipticCurvePoint:
     """
