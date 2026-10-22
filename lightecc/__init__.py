@@ -5,14 +5,15 @@ from typing import Optional, Tuple, Union
 from lightecc.forms.weierstrass import Weierstrass
 from lightecc.forms.edwards import TwistedEdwards
 from lightecc.forms.koblitz import Koblitz
-from lightecc.interfaces.elliptic_curve import EllipticCurvePoint
+from lightecc.forms.projective import Projective
+from lightecc.interfaces.elliptic_curve import EllipticCurvePoint, ProjectivePoint
 from lightecc.commons.pairing import weil_pairing
 from lightecc.commons.errors import InvalidCurveOrder
 from lightecc.commons.logger import Logger
 
 logger = Logger(module="lightecc/__init__.py")
 
-VERSION = "0.0.7"
+VERSION = "0.0.8"
 
 
 # pylint: disable=too-few-public-methods, too-many-function-args
@@ -26,10 +27,11 @@ class LightECC:
         config: Optional[dict] = None,
     ):
         """
-        Construct an Elliptic Curve over a finite field (prime or binary)
+        Construct an Elliptic Curve over a finite field (prime or binary),
+            or over a ring Z_m with projective form
         Args:
             form_name (str): specifies the form of the elliptic curve.
-                Options: 'weierstrass' (default), 'edwards', 'koblitz'.
+                Options: 'weierstrass' (default), 'edwards', 'koblitz', 'projective'.
             curve_name (str): specifies the elliptic curve to use.
                 Options:
                  - e.g. ed25519, ed448 for edwards form
@@ -43,6 +45,8 @@ class LightECC:
                  - 'd' for edwards curves
                  - 'k' for koblitz curves
                  If curve name is custom, then these parameters are required to define the curve.
+                 Projective form always requires 'modulus', 'b' and 'G', and optionally 'n'
+                 for the curve y^2 = x^3 + b over Z_modulus. Modulus does not have to be prime.
         """
         if form_name is None or form_name == "weierstrass":
             self.curve = Weierstrass(curve=curve_name, config=config)
@@ -50,17 +54,28 @@ class LightECC:
             self.curve = TwistedEdwards(curve=curve_name, config=config)
         elif form_name == "koblitz":
             self.curve = Koblitz(curve=curve_name, config=config)
+        elif form_name == "projective":
+            if curve_name not in (None, "custom"):
+                raise ValueError("Projective form supports custom curves only")
+            self.curve = Projective(config=config)
         else:
             raise ValueError(f"unimplemented curve form - {form_name}")
 
-        # base point
-        self.G = EllipticCurvePoint(self.curve.G[0], self.curve.G[1], self.curve)
+        if isinstance(self.curve, Projective):
+            # base point
+            self.G = ProjectivePoint(*self.curve.G, curve=self.curve)
+
+            # point at infinity
+            self.O = ProjectivePoint(*self.curve.O, curve=self.curve)
+        else:
+            # base point
+            self.G = EllipticCurvePoint(self.curve.G[0], self.curve.G[1], self.curve)
+
+            # point at infinity or neutral / identity element
+            self.O = EllipticCurvePoint(self.curve.O[0], self.curve.O[1], self.curve)
 
         # order of the curve
         self.n = self.curve.n
-
-        # point at infinity or neutral / identity element
-        self.O = EllipticCurvePoint(self.curve.O[0], self.curve.O[1], self.curve)
 
         # In lightecc/interfaces/elliptic_curve.py::double_and_add, returning the point at infinity (O)
         # when n is given as a scalar implicitly assumes that n is the correct order
