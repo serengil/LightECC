@@ -248,9 +248,40 @@ Below is a list of elliptic curves supported by LightECC. Each curve has a speci
 | koblitz | sect113r2 | binary | 113 |
 | koblitz | wap-wsg-idm-ecid-wtls1 | binary | 112 |
 
+# Projective Form for Curves over Rings
+
+Weierstrass, Edwards and Koblitz forms work with affine (x, y) points, and their addition formulas divide. That requires a field, i.e. a prime modulus or a binary field. Projective form instead works with (X : Y : Z) points on y² = x³ + b over Z_m, and adds them with [complete formulas](https://eprint.iacr.org/2015/1060) that never divide. So, the modulus m does not have to be prime. This suits cryptosystems over rings such as Z_{n²} with n = pq, e.g. Elliptic Curve Paillier.
+
+Projective form supports custom curves only. Its config requires the modulus, the coefficient b and the base point G, given as (x, y) or (X, Y, Z). The order n is optional, so you can leave it unset when it is secret.
+
+```python
+from lightecc import LightECC
+from lightecc.interfaces.elliptic_curve import ProjectivePoint
+
+n = 11 * 17
+
+# y^2 = x^3 + 7 over Z_{n^2}
+ec = LightECC(
+    form_name = "projective",
+    config = {"modulus": n * n, "b": 7, "G": (0, 1, 0)},
+)
+
+# (kn : 1 : 0) points reduce to point at infinity modulo n, but they are distinct modulo n^2
+M = ProjectivePoint(n, 1, 0, curve = ec.curve)
+
+assert M != ec.O
+assert M + M == ProjectivePoint(2 * n, 1, 0, curve = ec.curve)
+assert 5 * M - 2 * M == 3 * M
+assert n * M == ec.O
+
+# these points cannot be written as affine points, so M.to_affine() raises ValueError
+```
+
+Unlike other forms, multiplication does not reduce the scalar modulo n, as n may be unknown. Complete formulas assume the subgroup has no point of order 2, e.g. it has an odd order. Otherwise, adding P and Q fails with `PointNotOnCurve` when P - Q has order 2. Division is not supported in projective form.
+
 # Applications
 
-Explore the [`LightPHE`](https://github.com/serengil/LightPHE) library for its encryption and decryption implementation, which also demonstrates additive homomorphic properties with Elliptic Curve ElGamal algorithm. Additionally, check out [`LightDSA`](https://github.com/serengil/LightDSA) for elliptic curve based digital signature implementations such as ECDSA and EdDSA. These are both built on LightECC's fundamentals.
+Explore the [`LightPHE`](https://github.com/serengil/LightPHE) library for its encryption and decryption implementation, which also demonstrates additive homomorphic properties with Elliptic Curve ElGamal and Elliptic Curve Paillier algorithms. Additionally, check out [`LightDSA`](https://github.com/serengil/LightDSA) for elliptic curve based digital signature implementations such as ECDSA and EdDSA. These are both built on LightECC's fundamentals.
 
 # Contributing
 
