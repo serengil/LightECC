@@ -123,14 +123,15 @@ class EllipticCurvePoint:
     def get_point(self) -> Tuple[int, int]:
         return (self.x, self.y)
 
+    def is_identity(self) -> bool:
+        """
+        Check if the point is the neutral / identity element O of its curve
+        """
+        return self.x == self.curve.O[0] and self.y == self.curve.O[1]
+
     def __repr__(self):
 
-        if (
-            self.x == self.curve.O[0]
-            and self.y == self.curve.O[1]
-            and self.x == float("inf")
-            and self.y == float("inf")
-        ):
+        if self.is_identity() and self.x == float("inf") and self.y == float("inf"):
             # because Edwards has neutral / identity element instead of point at infinity
             return "\U0001d4aa"  # unicode for "𝒪" (circle O)
         return f"({self.x}, {self.y})"
@@ -164,6 +165,10 @@ class EllipticCurvePoint:
         if not isinstance(k, int):
             raise ValueError("Multiplication is only defined for an integer")
 
+        # k x O = O for any k
+        if self.is_identity():
+            return self
+
         x, y = self.curve.double_and_add((self.x, self.y), k)
         return EllipticCurvePoint(x, y, self.curve)
 
@@ -179,6 +184,10 @@ class EllipticCurvePoint:
         """
         Calculate -P for a given P
         """
+        # -O = O
+        if self.is_identity():
+            return self
+
         x, y = self.curve.negative_point((self.x, self.y))
         return EllipticCurvePoint(x, y, self.curve)
 
@@ -196,11 +205,11 @@ class EllipticCurvePoint:
 
         logger.debug(f"Find k from ({self.x}, {self.y}) = k x ({other.x}, {other.y})")
 
-        ox, oy = self.curve.O
+        # O = 0 x G
+        if self.is_identity():
+            return 0
         if self.x == other.x and self.y == other.y:
             return 1
-        if self.x == ox and self.y == oy:
-            return self.curve.n
 
         # base point
         gx, gy = other.get_point()

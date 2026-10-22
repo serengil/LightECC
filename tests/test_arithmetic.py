@@ -150,3 +150,33 @@ def test_add_neutral_point():
         assert cs.curve.add_points(cs.curve.O, cs.curve.O) == cs.curve.O
 
         logger.info(f"✅ Adding neutral point test done for {form}")
+
+
+def test_identity_element_arithmetic():
+    for form in FORMS:
+        ec = LightECC(form_name=form)
+        G = ec.G
+        n = ec.n
+        O = G * 0
+
+        assert O.is_identity() is True, f"G * 0 is not identity for {form}"
+        assert G.is_identity() is False, f"G is identity for {form}"
+
+        # discrete log
+        assert O / G == 0, f"(G * 0) / G != 0 for {form}"
+        assert (G * n) / G == 0, f"(G * n) / G != 0 for {form}"
+        assert G / G == 1, f"G / G != 1 for {form}"
+        assert (G * 5) / G == 5, f"(G * 5) / G != 5 for {form}"
+
+        # negation
+        assert -O == O, f"-O != O for {form}"
+
+        # scalar multiplication
+        assert O * 7 == O, f"O * 7 != O for {form}"
+        assert 7 * O == O, f"7 * O != O for {form}"
+
+        # addition & subtraction
+        assert G - O == G, f"G - O != G for {form}"
+        assert O + G == G, f"O + G != G for {form}"
+
+        logger.info(f"✅ Test identity element arithmetic done for {form}")
